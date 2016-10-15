@@ -1,10 +1,27 @@
 require 'random_data'
+ #Create uniques post
+ unique_post = Post.find_or_create_by!(
+                    title: "Sample Unique Title",
+                    body: "Sample Unique Body"
+               )
+
+Comment.find_or_create_by!(
+
+  post: unique_post,
+  body: 'Sample Unique Comment'
+)
+
+2.times do
+  Post.create(
+        title: "Non Unique Title",
+        body: "Non Unique Body"
+  )
+end
 
  # Create Posts
  50.times do
- # #1
    Post.create!(
- # #2
+
      title:  RandomData.random_sentence,
      body:   RandomData.random_paragraph
    )
@@ -12,10 +29,10 @@ require 'random_data'
  posts = Post.all
 
  # Create Comments
- # #3
+
  100.times do
    Comment.create!(
- # #4
+
      post: posts.sample,
      body: RandomData.random_paragraph
    )
