@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   def self.update_spam
     posts = Post.all
