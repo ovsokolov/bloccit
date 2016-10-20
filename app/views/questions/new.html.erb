@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Enter New Question</h1>
+  <div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-8">
+      <%= form_for @question do |q| %>
+          <div class="form-group">
+            <%= q.label :title %>
+            <%= q.text_field :title , class: "form-control", placeholder: "Enter Question Title" %>
+          </div>
+          <div class="form-group">
+            <%= q.label :body %>
+            <%= q.text_area :body , class: "form-control", placeholder: "Enter Question Body" %>
+          </div>
+          <div class="form-group">
+            <%= q.submit "Save", class: "btn btn-default"%>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
