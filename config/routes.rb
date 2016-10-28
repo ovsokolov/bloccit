@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   end
   resources :questions
 
+  resources :users, only: [:new, :create]
+
   get 'spamupdate' => 'posts#spamupdate'
 
   get 'about' => 'welcome#about'
