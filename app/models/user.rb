@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   before_save { self.email = email.downcase if email.present? }
+  before_save {
+    self.name = name.split(' ').map(&:capitalize).join(' ') if name.present?
+  }
 
   validates :name, length: { minimum: 1, maximum: 100 }, presence: true
 
