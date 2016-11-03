@@ -1,11 +1,12 @@
 class User < ApplicationRecord
   has_many :posts
-  
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   before_save { self.email = email.downcase if email.present? }
   before_save {
     self.name = name.split(' ').map(&:capitalize).join(' ') if name.present?
   }
+  before_save { self.role ||= :member }
 
   validates :name, length: { minimum: 1, maximum: 100 }, presence: true
 
@@ -19,4 +20,6 @@ class User < ApplicationRecord
            format: { with: VALID_EMAIL_REGEX }
 
   has_secure_password
+
+  enum role: [:member, :admin]
 end
