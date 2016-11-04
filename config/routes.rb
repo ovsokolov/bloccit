@@ -4,6 +4,11 @@ Rails.application.routes.draw do
     resources :posts, except: [:index]
     resources :sponsored_posts, only: [:show, :edit, :new, :create, :update]
   end
+
+  resources :posts, only: [] do
+    resources :comments, only: [:create, :destroy]
+  end
+  
   resources :questions
 
   resources :users, only: [:new, :create]

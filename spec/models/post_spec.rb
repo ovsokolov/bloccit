@@ -23,6 +23,8 @@ RSpec.describe Post, type: :model do
   it { is_expected.to validate_presence_of(:topic) }
   it { is_expected.to validate_presence_of(:user) }
 
+  it { is_expected.to have_many(:comments) }
+
    describe "attributes" do
      it "has a title, body, and user attribute" do
        expect(post).to have_attributes(title: title, body: body, user: user)

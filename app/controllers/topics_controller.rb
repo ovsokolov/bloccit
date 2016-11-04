@@ -67,7 +67,7 @@ class TopicsController < ApplicationController
   def authorize_user
 
     case action_name
-    when "new", "create", "destroy"
+      when "new", "create", "destroy"
         #byebug
         unless current_user.admin?
          flash[:alert] = "You must be an admin to do that."
