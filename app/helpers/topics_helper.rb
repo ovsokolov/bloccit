@@ -10,6 +10,5 @@ module TopicsHelper
         else
           current_user && current_user.admin?
       end
-
   end
 end

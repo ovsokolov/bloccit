@@ -10,6 +10,5 @@ module PostsHelper
       else
         current_user && (current_user == post.user || current_user.admin?)
     end
-    #current_user && (current_user == post.user || current_user.admin?)
   end
 end

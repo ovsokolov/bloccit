@@ -7,6 +7,8 @@
     <p><%= @sponsored_post.price %></p>
   </div>
   <div class="col-md-4">
-    <%= link_to "Edit", edit_topic_sponsored_post_path(@sponsored_post.topic, @sponsored_post), class: 'btn btn-success' %>
+    <% if user_is_authorized_for_post_action?(@sponsored_post,"edit") %>
+      <%= link_to "Edit", edit_topic_sponsored_post_path(@sponsored_post.topic, @sponsored_post), class: 'btn btn-success' %>
+    <% end %>
   </div>
 </div>
