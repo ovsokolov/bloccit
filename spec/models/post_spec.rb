@@ -12,6 +12,8 @@ RSpec.describe Post, type: :model do
 
   let(:post) { topic.posts.create!(title: title, body: body, user: user) }
 
+  let (:my_post) { nil }
+
   it { is_expected.to validate_length_of(:title).is_at_least(5) }
   it { is_expected.to validate_length_of(:body).is_at_least(20) }
 
@@ -82,4 +84,12 @@ RSpec.describe Post, type: :model do
      end
    end
 
+   describe "create_post callback" do
+     it "triggers create_post on create" do
+       my_post = topic.posts.build(title: title, body: body, user: user)
+       expect(my_post).to receive(:create_vote).at_least(:once)
+       my_post.save!
+       #expect{ topic.posts.create!(title: title, body: body, user: user) }.to change(Vote,:count).by(1)
+     end
+   end
 end
