@@ -93,4 +93,23 @@ RSpec.describe Post, type: :model do
        #expect{ topic.posts.create!(title: title, body: body, user: user) }.to change(Vote,:count).by(1)
      end
    end
+
+   describe "create_post favorite callback" do
+     before do
+       @post_user = User.create!(name: "Bloccit User", email: "ovsokolov@gmail.com", password: "helloworld")
+       @another_post =  topic.posts.new(title: title, body: body, user: @post_user)
+     end
+
+     it "set user favorites who created the post" do
+       #byebug
+       @another_post.save!
+       expect(@another_post.favorites.last.user).to eq(@post_user )
+     end
+
+     it "sends an email to users who have favorited the post" do
+       expect(FavoriteMailer).to receive(:new_post).with(@post_user , @another_post).and_return(double(deliver_now: true))
+       @another_post.save!
+     end
+   end
+
 end

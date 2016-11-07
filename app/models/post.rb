@@ -16,6 +16,7 @@ class Post < ApplicationRecord
   validates :user, presence: true
 
   after_create :create_vote
+  after_create :create_favorite
 
   def self.update_spam
     posts = Post.all
@@ -49,5 +50,15 @@ class Post < ApplicationRecord
   def create_vote
     #byebug
     user.votes.create!(value: 1, post: self)
+  end
+
+  def create_favorite
+    favorite = user.favorites.build(post: self)
+
+    if favorite.save
+      FavoriteMailer.new_post(user, self).deliver_now
+    else
+      #send email failure
+    end
   end
 end
