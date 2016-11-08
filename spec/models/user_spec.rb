@@ -118,4 +118,16 @@ RSpec.describe User, type: :model do
       expect(known_user.avatar_url(48)).to eq(expected_gravatar)
     end
   end
+
+  describe "other favorite" do
+    before do
+      topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)
+      @post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: another_user)
+      @favorite = Favorite.create!(post: @post, user: user)
+    end
+
+    it "shows favorite posts created by otther users" do
+      expect(user.other_favorites.last).to eq(@post)
+    end
+  end
 end

@@ -20,7 +20,17 @@
 </div>
 
 <h2>Posts</h2>
-<%= render @user.posts %>
-
+<% if user_has_posts?() %>
+  <%= render @user.posts %>
+<% else %>
+  <%= @user.name %> has not submitted any posts yet.
+<% end %>
 <h2>Comments</h2>
-<%= render @user.comments %>
+<% if user_has_comments?() %>
+  <%= render @user.comments %>
+<% else %>
+  <%= @user.name %> has not submitted any comments yet.
+<% end %>
+
+<h2>Other User's Favorites</h2>
+<%= render partial: "favorites/other_favorites", :collection => @user.other_favorites, :as => :post  %>
